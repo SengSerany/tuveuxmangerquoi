@@ -1,0 +1,8 @@
+<h1>Tu veux manger quoi ? 🤔</h1>
+<h3>(Homepage#index)</h3>
+<br/>
+<% if user_signed_in? %>
+    <p>Salut! tu es actuellement connecter avec le mail : <strong><%= current_user.email %></strong></p>
+<% else %>
+    <p>Salut ! aucun utilisateur n'est actuellement connecté 😟 ..</p>
+<% end %>
