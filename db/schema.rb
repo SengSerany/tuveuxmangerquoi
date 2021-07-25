@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_24_171820) do
+ActiveRecord::Schema.define(version: 2021_07_25_174537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dishes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_dishes_on_user_id"
+  end
+
+  create_table "link_b_type_a_dishes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "type_id", null: false
+    t.bigint "dish_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dish_id"], name: "index_link_b_type_a_dishes_on_dish_id"
+    t.index ["type_id"], name: "index_link_b_type_a_dishes_on_type_id"
+    t.index ["user_id"], name: "index_link_b_type_a_dishes_on_user_id"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_lists_on_user_id"
+  end
 
   create_table "types", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -35,5 +62,10 @@ ActiveRecord::Schema.define(version: 2021_07_24_171820) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "dishes", "users"
+  add_foreign_key "link_b_type_a_dishes", "dishes"
+  add_foreign_key "link_b_type_a_dishes", "types"
+  add_foreign_key "link_b_type_a_dishes", "users"
+  add_foreign_key "lists", "users"
   add_foreign_key "types", "users"
 end

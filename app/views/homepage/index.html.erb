@@ -3,6 +3,10 @@
 <br/>
 <% if user_signed_in? %>
     <p>Salut! tu es actuellement connecter avec le mail : <strong><%= current_user.email %></strong></p>
+
+    <a href="<%= types_path %>" class="btn btn-primary">Mes plats</a>
+    <a href="<%= lists_path %>" class="btn btn-secondary">Mes listes</a>
 <% else %>
     <p>Salut ! aucun utilisateur n'est actuellement connecté 😟 ..</p>
+    <p> Connecte toi pour accéder à tes plats et tes listes <p>
 <% end %>

@@ -1,2 +1,38 @@
-<h1>Types#index</h1>
-<p>Find me in app/views/types/index.html.erb</p>
+<h1>Les types de plats</h1>
+
+<br />
+
+<h5>Ajouter un type de plat </h5>
+ <%= form_for @type do |f| %>
+    <div class="form-align">
+        <div class="row">
+            <div class="col-sm-3 my-1">
+                <%= f.text_field :name, class: 'form-control mb-2', placeholder: "Exemple: Pâte" %>
+            </div>
+
+            <%= f.hidden_field :user_id, value: current_user.id %>
+
+            <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary">Créer le type</button>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<br/>
+<br/>
+
+<% if @types.count === 0 %>
+    <p class="text-center">Vous n'avez actuellement aucun type de plat enregistré 😢.</p>
+<% else %>
+    <% @types.each do |type| %>
+        <a href="<%= type_path(type.id) %>">
+            <div class="card col-sm-3 my-1">
+                <div class="card-body">
+                    <%= type.name %>
+                </div>
+            </div>
+        </a>
+        <br/>
+    <% end %>
+<% end %>
