@@ -8,4 +8,38 @@
 </div>
     <br/>
     <br/>
-<p>Find me in app/views/types/show.html.erb</p>
+<h5>Ajouter un plat</h5>
+ <%= form_for @dish do |f| %>
+    <div class="form-align">
+        <div class="row">
+            <div class="col-sm-3 my-1">
+                <%= f.text_field :name, class: 'form-control mb-2', placeholder: "Exemple: Pâte bolognaise" %>
+            </div>
+
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.hidden_field :type_id, value: @type.id %>
+
+            <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary">Ajouter le plat</button>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<br/>
+<br/>
+
+<% if @dishes.count === 0 %>
+    <p class="text-center">Vous n'avez actuellement aucun plat enregistré 😢.</p>
+<% else %>
+    <% @dishes.each do |dish| %>
+        <a href="<%= dish_path(dish.id) %>">
+            <div class="card col-sm-3 my-1">
+                <div class="card-body">
+                    <%= dish.name %>
+                </div>
+            </div>
+        </a>
+        <br/>
+    <% end %>
+<% end %>

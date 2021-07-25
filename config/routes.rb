@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :homepage, only: [:index]
   resources :types
   resources :lists
+  resources :dishes, except: [:index, :new]
 
   root to: "homepage#index"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

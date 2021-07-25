@@ -9,6 +9,8 @@ class TypesController < ApplicationController
 
   def show
     @type = Type.find(params[:id])
+    @dish = Dish.new
+    @dishes = Dish.where(user_id: current_user.id, type_id: @type.id)
   end
 
   def new
