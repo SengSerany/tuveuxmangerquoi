@@ -1,5 +1,7 @@
 class DishesController < ApplicationController
   def show
+    @dish = Dish.find(params[:id])
+    @newDish = Dish.new
   end
 
   def create

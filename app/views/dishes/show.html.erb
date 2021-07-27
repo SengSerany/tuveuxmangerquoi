@@ -1,2 +1,27 @@
-<h1>Dishes#show</h1>
-<p>Find me in app/views/dishes/show.html.erb</p>
+<div class="row">
+    <div class="col-md-auto">
+        <h5> Plat: </h5>
+    </div>
+    <div class="col">
+        <h1><%= @dish.name %></h1>
+    </div>
+</div>
+<br />
+<br />
+<h5>Quels sont les ingredients utilisez-vous pour ce plat ?</h5>
+ <%= form_for @newDish do |f| %>
+    <div class="form-align">
+        <div class="row">
+            <div class="col-sm-3 my-1">
+                <%= f.text_field :name, class: 'form-control mb-2', placeholder: "Ex: Sauce tomate" %>
+            </div>
+
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.hidden_field :dish_id, value: @dish.id %>
+
+            <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary">Ajouter l'ingredient</button>
+            </div>
+        </div>
+    </div>
+<% end %>
