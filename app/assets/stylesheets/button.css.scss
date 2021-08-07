@@ -8,3 +8,19 @@
     color: rgb(44, 44, 44);
     border-style: none;
  }
+
+.btn-outline-primary {
+   color: #00B8A9;
+   border-color: #00B8A9;
+}
+
+.btn-outline-primary:hover {
+   color: white;
+   background-color: #00B8A9;
+   border-style: none;
+}
+
+.btn-outline-secondary {
+   color: gray;
+   border-color: #FFDE7D;
+}

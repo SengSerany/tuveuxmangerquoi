@@ -8,20 +8,79 @@
 </div>
 <br />
 <br />
-<h5>Quels sont les ingredients utilisez-vous pour ce plat ?</h5>
- <%= form_for @newDish do |f| %>
-    <div class="form-align">
-        <div class="row">
-            <div class="col-sm-3 my-1">
-                <%= f.text_field :name, class: 'form-control mb-2', placeholder: "Ex: Sauce tomate" %>
-            </div>
 
-            <%= f.hidden_field :user_id, value: current_user.id %>
-            <%= f.hidden_field :dish_id, value: @dish.id %>
 
-            <div class="col-auto my-1">
-                <button type="submit" class="btn btn-primary">Ajouter l'ingredient</button>
+<h5>
+    <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#link_ingredients_dish_options" role="button" aria-expanded="false" aria-controls="add used ingredient to the dish">
+        Ajouter les ingredients nécessaires pour le plat
+    </a>
+</h5>
+<div class="collapse" id="link_ingredients_dish_options">
+    <br />
+    <h6>
+        <a class="btn btn-secondary" data-bs-toggle="collapse" href="#add_by_select" role="button" aria-expanded="false" aria-controls="add used ingredient to the dish by select menu">
+            Choisir parmis mes ingrédients déja ajoutés 🔎
+        </a>
+    <h6>
+    <div class="collapse" id="add_by_select">
+        <%= form_for @link_ingredient_dish do |f1| %>
+        <div class="form-align">
+            <div class="row">
+                <div class="col-sm-3 my-1">
+                    <%= f1.select :ingredient_id, @user_ingredients.collect { |i| [i.name, i.id] }, {:prompt => 'Sélectionner' }, {:class => 'form-select', :style => 'width: auto'}  %>
+                </div>
+
+                <%= f1.hidden_field :user_id, value: current_user.id %>
+                <%= f1.hidden_field :dish_id, value: @dish.id %>
+
+                <div class="col-auto my-1">
+                    <button type="submit" class="btn btn-primary">Ajouter l'ingredient</button>
+                </div>
             </div>
         </div>
+        <% end %>
+        <br />
     </div>
+
+    <h6>
+        <a class="btn btn-secondary" data-bs-toggle="collapse" href="#add_by_text" role="button" aria-expanded="false" aria-controls="add used ingredient to the dish by text">
+            Ajouter un nouvel ingrédient ➕
+        </a>
+    <h6>
+    <div class="collapse" id="add_by_text">
+        <%= form_for @ingredient do |f2| %>
+            <div class="form-align">
+                <div class="row">
+                    <div class="col-sm-3 my-1">
+                        <%= f2.text_field :name, class: 'form-control mb-2', placeholder: "Ex: Sauce tomate" %>
+                    </div>
+
+                    <%= f2.hidden_field :user_id, value: current_user.id %>
+                    <%= f2.hidden_field :dish_id, value: @dish.id %>
+
+                    <div class="col-auto my-1">
+                        <button type="submit" class="btn btn-primary">Ajouter l'ingredient</button>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+    <br/>
+</div>
+
+<br/>
+
+<% if @link_ingredients_dishes.count === 0 %>
+    <p class="text-center">Vous n'avez actuellement aucun ingredient enregistré 😢.</p>
+<% else %>
+    <% @link_ingredients_dishes.each do |link_ingredient_dish| %>
+            <div class="card col-sm-3 my-1">
+                <a href="<%= ingredient_path(link_ingredient_dish.ingredient_id) %>">
+                    <div class="card-body">
+                        <%= link_ingredient_dish.ingredient.name %>
+                    </div>
+                </a>
+            </div>
+        <br/>
+    <% end %>
 <% end %>

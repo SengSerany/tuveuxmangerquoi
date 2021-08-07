@@ -33,13 +33,13 @@
     <p class="text-center">Vous n'avez actuellement aucun plat enregistré 😢.</p>
 <% else %>
     <% @dishes.each do |dish| %>
-        <a href="<%= dish_path(dish.id) %>">
-            <div class="card col-sm-3 my-1">
+        <div class="card col-sm-3 my-1">
+            <a href="<%= dish_path(dish.id) %>">
                 <div class="card-body">
                     <%= dish.name %>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
         <br/>
     <% end %>
 <% end %>
