@@ -3,5 +3,5 @@ class List < ApplicationRecord
 
   validates :name,
     presence: {message: ": ta liste doit avoir un nom.. 😞"},
-    uniqueness: { case_sensitive: false, message: ": tu as déja une liste du même nom ! 😲 "}
+    uniqueness: { case_sensitive: false, scope: :user_id ,message: ": tu as déja une liste du même nom ! 😲 "}
 end

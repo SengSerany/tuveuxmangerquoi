@@ -1,2 +1,84 @@
-<h1>Lists#show</h1>
-<p>Find me in app/views/lists/show.html.erb</p>
+<div class="row">
+    <div class="col-md-auto">
+        <h5> Titre de la liste :</h5>
+    </div>
+    <div class="col">
+        <h1><%= @list.name %></h1>
+    </div>
+</div>
+    <br/>
+    <br/>
+    <br/>
+<h5>
+    <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#link_list_dishes_options" role="button" aria-expanded="false" aria-controls="add used ingredient to the dish">
+        Ajouter des plats à la liste ?
+    </a>
+</h5>
+<div class="collapse card card-primary text-center" id="link_list_dishes_options">
+    <br />
+    <div class="card-body">
+        <h6> Quel type de plats voulez-vous ajouter ?</h6>
+
+        <div class="row">
+            <%= form_for @link_list_dishes do |f| %>
+
+                <% @types.each do |type| %>
+                    <a class="btn btn-outline-secondary" data-bs-toggle="collapse" href="#<%= type.name%>" role="button" aria-expanded="false" aria-controls="add used ingredient to the dish by select menu">
+                        <%= type.name%>
+                    </a>
+                <% end %>
+        </div>
+            <% @types.each do |type| %>
+                <div class="collapse" id="<%= type.name%>">
+                    <br />
+                    <% if Dish.where(user_id: current_user.id, type_id: type.id).count != 0 %>
+                        <div class="form-align">
+                            <h6 class="text-primary"><%= type.name %></h6>
+                            <div class="row">
+                                <div class="col-auto my-1 mx-auto">
+                                    <%= f.select :dish_id, Dish.where(user_id: current_user.id, type_id: type.id).order("name ASC").collect { |i| [i.name, i.id] }, {:prompt => 'Sélectionner' }, {:class => 'form-select select_a_dish'}  %>
+                                </div>
+
+                                <%= f.hidden_field :user_id, value: current_user.id %>
+                                <%= f.hidden_field :list_id, value: @list.id %>
+
+                            </div>
+                        </div>
+                    <% else %>
+                        <h6 class="text-primary"><%= type.name %></h6>
+                        <p> Aucun plat est présent dans cette catégorie... 😞 </p>
+                    <% end %>
+                </div>
+            <% end %>
+
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :list_id, value: @list.id %>
+
+                <div class="col-auto my-1">
+                    <button type="submit" class="btn btn-secondary" id="addButton">Ajouter le-s plat-s à ma liste</button>
+                </div>
+
+            <% end %>
+
+        <br/>
+    </div>
+</div>
+
+<br/><br/>
+
+
+<% if @link_lists_dishes.count === 0 %>
+    <p class="text-center">Vous n'avez actuellement aucun plat enregistré dans cette liste 😢.</p>
+<% else %>
+    <% @link_lists_dishes.each do |one_link_list_dish| %>
+        <div class="card col-sm-3 my-1">
+            <div class="card-body">
+                <%= one_link_list_dish.dish.name %>
+            </div>
+        </div>
+        <br/>
+    <% end %>
+<% end %>
+<br />
+<br />
+<a href="<%= lists_path %>">< Revenir à la liste de listes 🤔</a>

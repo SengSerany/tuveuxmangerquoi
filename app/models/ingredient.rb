@@ -3,5 +3,5 @@ class Ingredient < ApplicationRecord
 
   validates :name,
     presence: {message: ": ton ingrédient doit avoir un nom.. 😞"},
-    uniqueness: { case_sensitive: false, message: ": tu as déja ajouté cet ingrédient ! 😲 "}
+    uniqueness: { case_sensitive: false, scope: :user_id, message: ": tu as déja ajouté cet ingrédient ! 😲 "}
 end

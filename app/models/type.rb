@@ -3,5 +3,5 @@ class Type < ApplicationRecord
 
   validates :name,
   presence: {message: ": ton type de plat doit avoir un nom.. 😞"},
-  uniqueness: { case_sensitive: false, message: ": tu as déja un type de plat du même nom ! 😲 "}
+  uniqueness: { case_sensitive: false, scope: :user_id, message: ": tu as déja un type de plat du même nom ! 😲 "}
 end

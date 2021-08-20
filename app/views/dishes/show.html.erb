@@ -26,7 +26,7 @@
         <%= form_for @link_ingredient_dish do |f1| %>
         <div class="form-align">
             <div class="row">
-                <div class="col-sm-3 my-1">
+                <div class="col-auto my-1">
                     <%= f1.select :ingredient_id, @user_ingredients.collect { |i| [i.name, i.id] }, {:prompt => 'Sélectionner' }, {:class => 'form-select', :style => 'width: auto'}  %>
                 </div>
 
@@ -42,11 +42,9 @@
         <br />
     </div>
 
-    <h6>
         <a class="btn btn-secondary" data-bs-toggle="collapse" href="#add_by_text" role="button" aria-expanded="false" aria-controls="add used ingredient to the dish by text">
             Ajouter un nouvel ingrédient ➕
         </a>
-    <h6>
     <div class="collapse" id="add_by_text">
         <%= form_for @ingredient do |f2| %>
             <div class="form-align">

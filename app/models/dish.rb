@@ -3,5 +3,5 @@ class Dish < ApplicationRecord
 
   validates :name,
   presence: {message: ": ton plat doit avoir un nom.. 😞"},
-  uniqueness: { case_sensitive: false, message: ": tu as déja ajouté ce plat ! 😲 "}
+  uniqueness: { case_sensitive: false, scope: :user_id, message: ": tu as déja ajouté ce plat ! 😲 "}
 end

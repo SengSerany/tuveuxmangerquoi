@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_29_083933) do
+ActiveRecord::Schema.define(version: 2021_08_20_113350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(version: 2021_07_29_083933) do
     t.index ["dish_id"], name: "index_link_ingredients_dishes_on_dish_id"
     t.index ["ingredient_id"], name: "index_link_ingredients_dishes_on_ingredient_id"
     t.index ["user_id"], name: "index_link_ingredients_dishes_on_user_id"
+  end
+
+  create_table "link_lists_dishes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "list_id", null: false
+    t.bigint "dish_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dish_id"], name: "index_link_lists_dishes_on_dish_id"
+    t.index ["list_id"], name: "index_link_lists_dishes_on_list_id"
+    t.index ["user_id"], name: "index_link_lists_dishes_on_user_id"
   end
 
   create_table "lists", force: :cascade do |t|
@@ -78,6 +89,9 @@ ActiveRecord::Schema.define(version: 2021_07_29_083933) do
   add_foreign_key "link_ingredients_dishes", "dishes"
   add_foreign_key "link_ingredients_dishes", "ingredients"
   add_foreign_key "link_ingredients_dishes", "users"
+  add_foreign_key "link_lists_dishes", "dishes"
+  add_foreign_key "link_lists_dishes", "lists"
+  add_foreign_key "link_lists_dishes", "users"
   add_foreign_key "lists", "users"
   add_foreign_key "types", "users"
 end

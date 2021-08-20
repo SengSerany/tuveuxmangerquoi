@@ -14,7 +14,7 @@ class DishesController < ApplicationController
       redirect_to type_path(@dish.type_id)
     else
       flash[:alert] = @dish.errors.full_messages.first
-      redirect_to type_path(@dish.type_id)
+      redirect_to types_path
     end
   end
 
