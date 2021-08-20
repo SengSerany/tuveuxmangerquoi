@@ -6,7 +6,7 @@ module ApplicationHelper
         html = <<-HTML
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
           <strong>
-           #{pluralize(resource.errors.count, "error")} must be fixed
+           #{pluralize(resource.errors.count, "error")} doit être corrigé-s
           </strong>
           #{messages}
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

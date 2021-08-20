@@ -8,8 +8,14 @@ class DishesController < ApplicationController
   end
 
   def create
-    @dish = Dish.create(dish_params)
-    redirect_to type_path(@dish.type_id)
+    @dish = Dish.new(dish_params)
+    if @dish.valid?
+      @dish.save
+      redirect_to type_path(@dish.type_id)
+    else
+      flash[:alert] = @dish.errors.full_messages.first
+      redirect_to type_path(@dish.type_id)
+    end
   end
 
   def edit

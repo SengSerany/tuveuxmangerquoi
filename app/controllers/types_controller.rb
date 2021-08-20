@@ -17,8 +17,14 @@ class TypesController < ApplicationController
   end
 
   def create
-    @type = Type.create(type_params)
-    redirect_to types_path
+    @type = Type.new(type_params)
+    if @type.valid?
+      @type.save
+      redirect_to types_path
+    else
+      flash[:alert] = @type.errors.full_messages.first
+      redirect_to types_path
+    end
   end
 
   def edit

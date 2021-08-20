@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :lists
   resources :dishes, except: [:index, :new]
   resources :link_ingredients_dishes, only: [:create, :update, :destroy]
-  resources :ingredients, except: [:index, :new, :edit]
+  resources :ingredients, except: [:new, :edit]
 
   root to: "homepage#index"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
